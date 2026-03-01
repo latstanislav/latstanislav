@@ -1,19 +1,34 @@
 # ML-Engineer-Portfolio
-В данном репозитории собраны ключевые проекты, реализованные мной в рамках обучения на курсе ML Engineer в Яндекс Практикуме. Каждый проект представляет собой решение конкретной бизнес-задачи (RecSys, NLP, LLM, MLOps).
+В данном репозитории собраны ключевые проекты, реализованные мной в коммерчесских целях, а также в рамках обучения на курсе ML Engineer в Яндекс Практикуме.   
+Каждый проект представляет собой решение конкретной бизнес-задачи (RecSys, NLP, LLM, MLOps).
 Особенности:  
 Все проекты доведены до стадии работающих прототипов или пайплайнов.
 Тетради (Jupyter Notebooks) содержат подробный анализ данных (EDA), построение моделей и выводы.
 
-## 💼 Commercial Experience (Коммерческий опыт)
+## Commercial Experience (Коммерческий опыт)
 | Project name | Role | Description | Stack |
 | :--- | :--- | :--- | :--- |
-| **Marketplace Backend** | Lead Backend Developer | Проектирование и реализация микросервисной архитектуры маркетплейса с автоматизированным CI/CD и деплоем в GCP. | FastAPI, Docker, GitHub Actions, Google Cloud, PostgreSQL |
+| [**Marketplace Backend**](./ML-Engineer-Portfolio/Marketplace_Backend) | Lead Backend Developer | Проектирование и реализация микросервисной архитектуры маркетплейса с автоматизированным CI/CD и деплоем в GCP. | FastAPI, Docker, GitHub Actions, Google Cloud, PostgreSQL |
 
 ---
 
+## ML Projects (Yandex Practicum)
+Здесь представлены ключевые кейсы, реализованные в рамках обучения на программе ML Engineer.
+
+### 🤖 Generative AI & NLP (LLM, RAG, Search)
 | Project name | Description | Stack |
 | :--- | :--- | :--- |
-| **LLM SFT & Adaptation** | Обучение базовой модели (Llama) и SFT (Qwen) на диалоговых корпусах с применением LoRA. | Python, PyTorch, Transformers, LoRA, ClearML |
-| **Multi-task NLP Model** | Система семантического поиска: классификация новостей и выделение сущностей (NER) на базе RuBERT. | RuBERT, BIO-tagging, Custom Loss, PyTorch |
-| **Two-stage RecSys** | Рекомендательная система для музыки: матричная факторизация (ALS) + ранжирование (CatBoost). | ALS, CatBoost, Cosine Similarity, Pandas |
-| **Banking Cross-Sell** | Прогнозирование склонности клиента к продукту и построение MLOps-пайплайна. | MLflow, DVC, Airflow, Scikit-learn |
+| [**Semantic Retrieval System**]() | Разработка поисковой системы по статьям arXiv.org. Использование LLM для выделения сущностей (NER) и оценка качества выдачи по метрике **MRR@5**. | Hugging Face, Transformers, Datasets, LLM-based NER |
+| [**LLM SFT & Adaptation**]() | Обучение базовой модели (Llama) и SFT (Qwen) на диалоговых корпусах с применением LoRA. Подготовка пайплайна для RAG-систем. | Python, PyTorch, Transformers, LoRA, ClearML |
+| [**Multi-task NLP Model**]() | Система семантического анализа новостей: совместное решение задач NER и CLS на базе RuBERT с кастомной архитектурой. | RuBERT, BIO-tagging, Custom Loss, PyTorch |
+
+### 🚀 MLOps & Production
+| Project name | Description | Stack |
+| :--- | :--- | :--- |
+| [**End-to-End Real Estate Pipeline**]() | Сквозной проект: от ETL-процессов и версионирования данных до деплоя модели оценки недвижимости с мониторингом (Grafana). | Airflow, DVC, FastAPI, Docker, Prometheus, Grafana, MLflow, PostgreSQL |
+| [**Uplift Modeling (Yandex Food)**]() | Оценка эффективности маркетинговых акций: построение Uplift-моделей (X/S/T/R-learners) и расчет стат. значимости (Z-test, Chi-square). | MLflow, Optuna, LightGBM, XGBoost, UpliftML, Statistics |
+
+### 🎵 Recommendation Systems
+| Project name | Description | Stack |
+| :--- | :--- | :--- |
+| [**Two-stage RecSys**]() | Рекомендательная система для музыки: матричная факторизация (ALS) + ранжирование кандидатов (CatBoost). | ALS, CatBoost, Cosine Similarity, Pandas |
