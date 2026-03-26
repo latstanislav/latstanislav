@@ -6,22 +6,23 @@ stages:
     params:
       - index_col
     outs:
-      - data/dvc_data.csv
+      - data/s2_data.csv
   fit_model:
     cmd: python scripts/fit.py
     deps:
-      - data/dvc_data.csv
+      - data/s2_data.csv
       - scripts/fit.py
     params:
       - index_col
       - target_col
-      - one_hot_drop
     outs:
-      - models/train_model.pkl
+      - models/yandex_estate_model.pkl
+    metrics:
+      - metrics/fit_model_metrics.json
   evaluate_model:
     cmd: python scripts/evaluate.py
     deps:
-      - models/train_model.pkl
+      - models/yandex_estate_model.pkl
       - scripts/evaluate.py
     params:
       - index_col
@@ -30,4 +31,4 @@ stages:
       - n_jobs
       - metrics
     outs:
-      - cv_results/cv_res.json 
+      - cv_results/cv_res_new.json 

@@ -1,46 +1,54 @@
 ## scripts/data.py
 
 # 1 — импорты
-import pandas as pd
-from sqlalchemy import create_engine
 import os
-from dotenv import load_dotenv
+
+import pandas as pd
 import yaml
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+
 
 # 2 — вспомогательные функции
 def create_connection():
 
     load_dotenv()
-    host = os.environ.get('DB_DESTINATION_HOST')
-    port = os.environ.get('DB_DESTINATION_PORT')
-    db = os.environ.get('DB_DESTINATION_NAME')
-    username = os.environ.get('DB_DESTINATION_USER')
-    password = os.environ.get('DB_DESTINATION_PASSWORD')
-    
-    conn = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{db}', connect_args={'sslmode':'require'})
+    host = os.environ.get("DB_DESTINATION_HOST")
+    port = os.environ.get("DB_DESTINATION_PORT")
+    db = os.environ.get("DB_DESTINATION_NAME")
+    username = os.environ.get("DB_DESTINATION_USER")
+    password = os.environ.get("DB_DESTINATION_PASSWORD")
+
+    conn = create_engine(
+        f"postgresql://{username}:{password}@{host}:{port}/{db}",
+        connect_args={"sslmode": "require"},
+    )
     return conn
+
 
 # 3 — главная функция
 def get_data():
 
     # 3.1 — загрузка гиперпараметров
-    with open('params.yaml', 'r') as fd:
+    with open("params.yaml", "r") as fd:
         params = yaml.safe_load(fd)
-    
+
     # 3.2 — загрузки предыдущих результатов нет, так как это первый шаг
 
     # 3.3 — основная логика
     conn = create_connection()
-    data = pd.read_sql('select * from clean_flat_target_price', conn, index_col=params['index_col'])
-    data['has_elevator'] = data['has_elevator'].astype(int)
-    
+    data = pd.read_sql(
+        "select * from clean_flat_target_price", conn, index_col=params["index_col"]
+    )
+    data["has_elevator"] = data["has_elevator"].astype(int)
+
     conn.dispose()
 
     # 3.4 — сохранение результата шага
-    os.makedirs('data', exist_ok=True)
-    data.to_csv('data/dvc_data.csv', index=None)
-    
+    os.makedirs("data", exist_ok=True)
+    data.to_csv("data/s2_data.csv", index=None)
+
 
 # 4 — защищённый вызов главной функции
-if __name__ == '__main__':
+if __name__ == "__main__":
     get_data()

@@ -5,52 +5,51 @@ stages:
     deps:
     - path: scripts/data.py
       hash: md5
-      md5: 9d3f1be603d8c68a15e21a27370d5114
-      size: 1503
+      md5: 4d6f86d50dcfb313da94ea657959bc3a
+      size: 1528
     params:
       params.yaml:
         index_col: id
     outs:
-    - path: data/dvc_data.csv
+    - path: data/s2_data.csv
       hash: md5
       md5: 8463c244b3878c94f96f55bfa669a8d4
       size: 12855583
-      cloud:
-        my_storage:
-          etag: 8463c244b3878c94f96f55bfa669a8d4
-          version_id: 00063AC7F5866021
   fit_model:
     cmd: python scripts/fit.py
     deps:
-    - path: data/dvc_data.csv
+    - path: data/s2_data.csv
       hash: md5
       md5: 8463c244b3878c94f96f55bfa669a8d4
       size: 12855583
     - path: scripts/fit.py
       hash: md5
-      md5: 8e84d6ec1fc2169b4fafd61cb2a1afb5
-      size: 2765
+      md5: 089b3b07972c67faca41ec404c8426fb
+      size: 4134
     params:
       params.yaml:
         index_col: id
-        one_hot_drop: if_binary
         target_col: price
     outs:
-    - path: models/train_model.pkl
+    - path: metrics/fit_model_metrics.json
       hash: md5
-      md5: 253e22e8fe3dc48dcdb68484bdcd0523
-      size: 1124011
+      md5: 6ee99010f966e072def7a280490f3bc6
+      size: 89
+    - path: models/yandex_estate_model.pkl
+      hash: md5
+      md5: 3962111a25d271c576e6ae61fb308286
+      size: 1093704
   evaluate_model:
     cmd: python scripts/evaluate.py
     deps:
-    - path: models/train_model.pkl
+    - path: models/yandex_estate_model.pkl
       hash: md5
-      md5: 253e22e8fe3dc48dcdb68484bdcd0523
-      size: 1124011
+      md5: 3962111a25d271c576e6ae61fb308286
+      size: 1093704
     - path: scripts/evaluate.py
       hash: md5
-      md5: 833bcb9fc08766b3b1f1eaf07ac56109
-      size: 1366
+      md5: 688c39bf4b314298ca2c1042d490f180
+      size: 1425
     params:
       params.yaml:
         index_col: id
@@ -62,7 +61,7 @@ stages:
         n_splits: 5
         target_col: price
     outs:
-    - path: cv_results/cv_res.json
+    - path: cv_results/cv_res_new.json
       hash: md5
-      md5: b9d120b55b4a230d2574430c9333a016
+      md5: ab4f224e409d81189080c96c603860bc
       size: 202
