@@ -1,0 +1,68 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python scripts/data.py
+    deps:
+    - path: scripts/data.py
+      hash: md5
+      md5: 9d3f1be603d8c68a15e21a27370d5114
+      size: 1503
+    params:
+      params.yaml:
+        index_col: id
+    outs:
+    - path: data/dvc_data.csv
+      hash: md5
+      md5: 8463c244b3878c94f96f55bfa669a8d4
+      size: 12855583
+      cloud:
+        my_storage:
+          etag: 8463c244b3878c94f96f55bfa669a8d4
+          version_id: 00063AC7F5866021
+  fit_model:
+    cmd: python scripts/fit.py
+    deps:
+    - path: data/dvc_data.csv
+      hash: md5
+      md5: 8463c244b3878c94f96f55bfa669a8d4
+      size: 12855583
+    - path: scripts/fit.py
+      hash: md5
+      md5: 8e84d6ec1fc2169b4fafd61cb2a1afb5
+      size: 2765
+    params:
+      params.yaml:
+        index_col: id
+        one_hot_drop: if_binary
+        target_col: price
+    outs:
+    - path: models/train_model.pkl
+      hash: md5
+      md5: 253e22e8fe3dc48dcdb68484bdcd0523
+      size: 1124011
+  evaluate_model:
+    cmd: python scripts/evaluate.py
+    deps:
+    - path: models/train_model.pkl
+      hash: md5
+      md5: 253e22e8fe3dc48dcdb68484bdcd0523
+      size: 1124011
+    - path: scripts/evaluate.py
+      hash: md5
+      md5: 833bcb9fc08766b3b1f1eaf07ac56109
+      size: 1366
+    params:
+      params.yaml:
+        index_col: id
+        metrics:
+        - neg_mean_absolute_error
+        - neg_mean_squared_error
+        - neg_mean_absolute_percentage_error
+        n_jobs: -1
+        n_splits: 5
+        target_col: price
+    outs:
+    - path: cv_results/cv_res.json
+      hash: md5
+      md5: b9d120b55b4a230d2574430c9333a016
+      size: 202
